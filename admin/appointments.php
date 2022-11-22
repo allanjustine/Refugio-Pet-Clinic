@@ -954,7 +954,7 @@ if(isset($_GET['declined'])){
         }else{
           $end = $event['end'];
         }
-        ?>
+        ?>,
         {
           id: '<?php echo $event['id']; ?>',
           title: '<?php echo $event['title']; ?>',

@@ -763,7 +763,7 @@ if(isset($_POST['doneEvent'])){
         }else{
           $end = $event['end'];
         }
-        ?>
+        ?>,
         {
           id: '<?php echo $event['id']; ?>',
           title: '<?php echo $event['title']; ?>',
