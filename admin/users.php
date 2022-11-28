@@ -29,7 +29,7 @@ if (isset($_POST['addUser'])) {
 
   $insert_emp = $pdo->prepare("INSERT INTO users ( email, password, role ) VALUES( :email, :password, :role )");
   $insert_emp->bindParam(":email", $emp_email);
-  $insert_emp->bindParam(":password", $pass );
+  $insert_emp->bindParam(":password", password_hash($pass, PASSWORD_DEFAULT) );
   $insert_emp->bindParam(":role", $emp_role );
   $insert_emp->execute();
 

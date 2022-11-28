@@ -483,7 +483,7 @@ if(isset($_POST["btnupdate"])){
 
     <footer>
         <p>
-            <strong>Copyright &copy; <?php echo date('Y'); ?><a href="http://localhost/refugio-pet-clinic/"> Pet Clinic</a>.</strong>
+            <strong>Copyright &copy; <?php echo date('Y'); ?><a href="https://pet-clinic.accenzo.site"> Pet Clinic</a>.</strong>
             All rights reserved.
         </p>
     </footer>

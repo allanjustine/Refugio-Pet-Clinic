@@ -62,7 +62,7 @@ if (isset($_POST['addCustomer'])) {
 
          $insert_user = $pdo->prepare("INSERT INTO users ( email, password, role ) VALUES( :email, :password, 'customer' )");
   $insert_user->bindParam(":email", $cus_email);
-  $insert_user->bindParam(":password", $pass );
+  $insert_user->bindParam(":password", md5($pass) );
   $insert_user->execute();
 
   $to = $cus_email;

@@ -763,7 +763,7 @@ if(isset($_POST['doneEvent'])){
         }else{
           $end = $event['end'];
         }
-        ?>,
+        ?>
         {
           id: '<?php echo $event['id']; ?>',
           title: '<?php echo $event['title']; ?>',
@@ -789,8 +789,8 @@ if(isset($_POST['doneEvent'])){
             $('#pre-loader').css("display","none");
           }
         },
-        slotMinTime: '08:00:00',
-        slotMaxTime: '18:00:00',
+        slotMinTime: '09:00:00',
+        slotMaxTime: '17:00:00',
         editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       //navLinks: true,
@@ -800,9 +800,9 @@ if(isset($_POST['doneEvent'])){
         const d1 = new Date(event.startStr.split(' ')[0]);
         $("#prbtn-lbl").addClass("active");
         $("#crbtn-lbl").removeClass("active");
-        if(isWeekend(d1)){
+        if(isSunday(d1)){
             $("#crbtn").attr("disabled","disabled");
-            toastr.info("Cannot schedule clinical appointments on weekends!")
+            toastr.info("Cannot schedule clinical appointments on Sundays!")
         } else {
           $("#crbtn").removeAttr("disabled");
         }
@@ -817,9 +817,9 @@ if(isset($_POST['doneEvent'])){
         const d1 = new Date(info.event.startStr.split(' ')[0]);
         var d2 = new Date(info.event.endStr.split(' ')[0]);
         d2 = moment(d2).subtract(1, 'days').toDate();
-        if(isWeekend(d1)||isWeekend(d2)){
+        if(isSunday(d1)||isSunday(d2)){
             $("#clinical-rbtn").attr("disabled","disabled");
-            toastr.info("Cannot schedule clinical appointments on weekends!")
+            toastr.info("Cannot schedule clinical appointments on Sundays!")
         } else {
           $("#clinical-rbtn").removeAttr("disabled");
         }
@@ -871,7 +871,6 @@ if(isset($_POST['doneEvent'])){
           $('#editEvent #clinical-rbtn').removeClass("disabled");
 
           $("#edit-event-delete-btn").after(`
-
               <input type="submit" name="editEvent" id="edit-event-save-btn" value="Save Changes" class="btn btn-success" value="">
           `);
 
@@ -885,8 +884,8 @@ if(isset($_POST['doneEvent'])){
             const d1 = new Date(info.event.startStr.split(' ')[0]);
             var d2 = new Date(info.event.endStr.split(' ')[0]);
             d2 = moment(d2).subtract(1, 'days').toDate();
-            if((isWeekend(d1)||isWeekend(d2)) && info.event.extendedProps.isPersonal=='false'){
-              toastr.error("Cannot schedule clinical appointments on weekends!");
+            if((isSunday(d1)||isSunday(d2)) && info.event.extendedProps.isPersonal=='false'){
+              toastr.error("Cannot schedule clinical appointments on Sundays!");
               info.revert();
             } else {
               edit(info);
@@ -905,8 +904,8 @@ if(isset($_POST['doneEvent'])){
             const d1 = new Date(info.event.startStr.split(' ')[0]);
             var d2 = new Date(info.event.endStr.split(' ')[0]);
             d2 = moment(d2).subtract(1, 'days').toDate();
-            if((isWeekend(d1) || isWeekend(d2)) && info.event.extendedProps.isPersonal=='false'){
-              toastr.error("Cannot schedule clinical appointments on weekends!");
+            if((isSunday(d1) || isSunday(d2)) && info.event.extendedProps.isPersonal=='false'){
+              toastr.error("Cannot schedule clinical appointments on Sundays!");
               info.revert();
             } else {
               edit(info);
@@ -963,8 +962,8 @@ if(isset($_POST['doneEvent'])){
     calendar.changeView($("#calendar-view").val());
   })
 
-  function isWeekend(date = new Date()) {
-    return date.getDay() === 6 || date.getDay() === 0;
+  function isSunday(date = new Date()) {
+    return date.getDay() === 0;
   }
 
   function edit(info){

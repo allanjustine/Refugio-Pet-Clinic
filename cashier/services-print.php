@@ -37,10 +37,10 @@ require_once './header.php';
                       <h1 class="card-title"><strong>PET CLINIC</strong></h1>
                       <br>
                       <br>
-                      Tubigon Mkt Rd, Tubigon 6329<br>
+                      Pooc Occidental, Tubigon 6329<br>
                       Bohol, Philippines<br>
-                      Phone: (555) 539-1037<br>
-                      Email: <?=$_SESSION['email']?>
+                      Phone: (+63)909 680 1555<br>
+                      Email: admin@petclinic.com
                     </address>
                   </div>
                   <div class="col-md-6 pr-10">
@@ -143,7 +143,6 @@ require_once './header.php';
         $("#grandtotal-p").text(formatter.format(data[0].bill).replace(/^(\D+)/, '$1 '));
 
         $("#service-tbody").html(`
-
             <tr>
               <td>${data[0].title}</td>
               <td>${data[0].description}</td>

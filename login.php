@@ -76,7 +76,7 @@ if (isset($_POST['btn_signup'])) {
 
          $insert_user = $pdo->prepare("INSERT INTO users ( email, password, role ) VALUES( :email, :password, 'customer' )");
   $insert_user->bindParam(":email", $cus_email);
-  $insert_user->bindParam(":password", $pass );
+  $insert_user->bindParam(":password", md5($pass) );
   $insert_user->execute();
 
   $to = $cus_email;
@@ -578,7 +578,7 @@ if (isset($_POST['btn_signup'])) {
 
 	<footer>
 		<p>
-			<strong>Copyright &copy; <?php echo date('Y'); ?><a href="http://localhost/refugio-pet-clinic/"> Pet Clinic</a>.</strong>
+			<strong>Copyright &copy; <?php echo date('Y'); ?><a href="https://pet-clinic.accenzo.site"> Pet Clinic</a>.</strong>
 			All rights reserved.
 		</p>
 	</footer>

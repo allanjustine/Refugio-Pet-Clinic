@@ -954,7 +954,7 @@ if(isset($_GET['declined'])){
         }else{
           $end = $event['end'];
         }
-        ?>,
+        ?>
         {
           id: '<?php echo $event['id']; ?>',
           title: '<?php echo $event['title']; ?>',
@@ -989,9 +989,9 @@ if(isset($_GET['declined'])){
       select: function(event) {
         const d1 = new Date(event.startStr.split(' ')[0]);
         
-        if(isWeekend(d1)){
+        if(isSunday(d1)){
             $("#addEvent #customer_id").attr("disabled","disabled");
-            toastr.info("Cannot schedule clinical appointments on weekends!")
+            toastr.info("Cannot schedule clinical appointments on Sundays!")
         } else {
           $("#addEvent #customer_id").removeAttr("disabled");
         }
@@ -1005,13 +1005,7 @@ if(isset($_GET['declined'])){
         const d1 = new Date(info.event.startStr.split(' ')[0]);
         var d2 = new Date(info.event.endStr.split(' ')[0]);
         d2 = moment(d2).subtract(1, 'days').toDate();
-        if(isWeekend(d1)||isWeekend(d2)){
-            $("#editEvent #customer_id").attr("disabled","disabled");
-            toastr.info("Cannot schedule clinical appointments on weekends!")
-        } else {
-          $("#editEvent #customer_id").removeAttr("disabled");
-        }
-
+        
         $('#editEvent #id').val(info.event.id);
         $('#editEvent #appt_code').val(info.event.extendedProps.appt_code);
         $('#editEvent #title').val(info.event.title);
@@ -1031,7 +1025,13 @@ if(isset($_GET['declined'])){
         $("#cancel-note-div").css("display", "none");
         $("#cancel-note").val("");
 
-        
+        if(isSunday(d1)||isSunday(d2)){
+            $("#editEvent #customer_id").attr("disabled","disabled");
+            toastr.info("Cannot schedule clinical appointments on Sundays!")
+        } else {
+          $("#editEvent #customer_id").removeAttr("disabled");
+        }
+
           
           $('#edit-event-save-btn').remove();
           $('#edit-event-delete-btn').remove();
@@ -1052,7 +1052,6 @@ if(isset($_GET['declined'])){
           $('#editEvent #color').removeAttr("disabled");
 
           $("#editEventBtn").prepend(`
-
               <button type="button" class="btn btn-danger" id="edit-event-delete-btn" onclick="cancelEvent()" >Delete Event</button>
               <input type="submit" name="editEvent" id="edit-event-save-btn" value="Save Changes" class="btn btn-success" value="">
           `);
@@ -1067,8 +1066,8 @@ if(isset($_GET['declined'])){
             const d1 = new Date(info.event.startStr.split(' ')[0]);
             var d2 = new Date(info.event.endStr.split(' ')[0]);
             d2 = moment(d2).subtract(1, 'days').toDate();
-            if((isWeekend(d1)||isWeekend(d2)) && info.event.extendedProps.customer_id != 0){
-              toastr.error("Cannot schedule clinical appointments on weekends!");
+            if((isSunday(d1)||isSunday(d2)) && info.event.extendedProps.customer_id != 0){
+              toastr.error("Cannot schedule clinical appointments on Sundays!");
               info.revert();
             } else {
               edit(info);
@@ -1086,8 +1085,8 @@ if(isset($_GET['declined'])){
             const d1 = new Date(info.event.startStr.split(' ')[0]);
             var d2 = new Date(info.event.endStr.split(' ')[0]);
             d2 = moment(d2).subtract(1, 'days').toDate();
-            if((isWeekend(d1) || isWeekend(d2)) && info.event.extendedProps.customer_id != 0){
-              toastr.error("Cannot schedule clinical appointments on weekends!");
+            if((isSunday(d1) || isSunday(d2)) && info.event.extendedProps.customer_id != 0){
+              toastr.error("Cannot schedule clinical appointments on Sundays!");
               info.revert();
             } else {
               edit(info);
@@ -1144,8 +1143,8 @@ if(isset($_GET['declined'])){
     calendar.changeView($("#calendar-view").val());
   });
 
-  function isWeekend(date = new Date()) {
-    return date.getDay() === 6 || date.getDay() === 0;
+  function isSunday(date = new Date()) {
+    return date.getDay() === 0;
   }
 
   function edit(info){
